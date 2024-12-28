@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customized Header Widget</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lexend+Zetta:wght@100..900&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5; /* Light gray background */
+        }
+
+        .lexend-zetta {
+            font-family: "Lexend Zetta", serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .custom-header-container {
+            position: relative;
+        }
+
+        .custom-header {
+            background-color: #C8B7A5; /* Initial background color */
+            color: #ffffff; /* Font color */
+            font-size: 24px; /* Customize your font size */
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+            width: 90%; /* Responsive width */
+            max-width: 600px; /* Maximum width for larger screens */
+            margin-bottom: 20px;
+            position: relative;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-container {
+            display: none;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            gap: 5px;
+        }
+
+        .custom-header-container:hover .button-container {
+            display: flex;
+        }
+
+        button, input[type="color"] {
+            padding: 5px 8px;
+            font-size: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: white;
+            transition: background-color 0.3s ease;
+            opacity: 0.8;
+        }
+
+        button:hover, input[type="color"]:hover {
+            background-color: #2c7cc2;
+        }
+    </style>
+</head>
+<body>
+    <div class="custom-header-container">
+        <div class="custom-header lexend-zetta" id="header">
+            Overview
+            <div class="button-container">
+                <button onclick="changeText()">Edit Text</button>
+                <input type="color" id="color-picker" onchange="changeBackgroundColor(this.value)">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeBackgroundColor(color) {
+            const header = document.getElementById('header');
+            header.style.backgroundColor = color;
+        }
+
+        function changeText() {
+            const newText = prompt('Enter new text for the header:', 'Overview');
+            if (newText) {
+                document.getElementById('header').textContent = newText;
+            }
+        }
+    </script>
+</body>
+</html>
