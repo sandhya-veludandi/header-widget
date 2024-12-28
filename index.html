@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +13,11 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #C8B7A5; /* Light gray background */
+            background-color: #f5f5f5; /* Light gray background */
         }
 
         .lexend-zetta {
             font-family: "Lexend Zetta", serif;
-            font-optical-sizing: auto;
             font-weight: 400;
             font-style: normal;
         }
@@ -31,6 +32,9 @@
             font-size: 24px; /* Customize your font size */
             font-weight: bold;
             text-align: center;
+            padding: 20px;
+            border-radius: 12px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
             width: 90%; /* Responsive width */
             max-width: 600px; /* Maximum width for larger screens */
             margin-bottom: 20px;
@@ -50,6 +54,22 @@
             display: flex;
         }
 
+        .text-input-container {
+            display: none;
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .custom-header-container .text-input-container {
+            display: none;
+        }
+
+        .custom-header-container .text-input-container.active {
+            display: flex;
+        }
+
         button, input[type="color"] {
             padding: 5px 8px;
             font-size: 12px;
@@ -65,16 +85,35 @@
         button:hover, input[type="color"]:hover {
             background-color: #2c7cc2;
         }
+
+        input[type="text"] {
+            padding: 5px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #3498db;
+        }
     </style>
 </head>
 <body>
     <div class="custom-header-container">
-        <div class="custom-header lexend-zetta" id="header">
-            Overview
-            <div class="button-container">
-                <button onclick="changeText()">Edit Text</button>
-                <input type="color" id="color-picker" onchange="changeBackgroundColor(this.value)">
-            </div>
+        <div class="custom-header lexend-zetta" id="header">Overview</div>
+        <div class="button-container">
+            <button onclick="toggleTextInput()">Edit Header</button>
+            <input type="color" id="color-picker" onchange="changeBackgroundColor(this.value)">
+        </div>
+        <div class="text-input-container" id="text-input-container">
+            <input 
+                type="text" 
+                id="header-text-input" 
+                placeholder="Enter new header text" 
+                oninput="updateHeaderText(this.value)">
+            <button onclick="toggleTextInput()">Done</button>
         </div>
     </div>
 
@@ -84,11 +123,15 @@
             header.style.backgroundColor = color;
         }
 
-        function changeText() {
-            const newText = prompt('Enter new text for the header:', 'Overview');
-            if (newText) {
-                document.getElementById('header').textContent = newText;
-            }
+        function updateHeaderText(text) {
+            const header = document.getElementById('header');
+            header.textContent = text || "Overview";
+        }
+
+        function toggleTextInput() {
+            const inputContainer = document.getElementById('text-input-container');
+            inputContainer.classList.toggle('active');
         }
     </script>
 </body>
+</html>
